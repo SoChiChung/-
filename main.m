@@ -14,12 +14,18 @@ Xi0(1)=1;
 [~,Emin] = fmincon(@ERn,Xi0,[],[],[],[],[],[],@fcontr);
 [~,Emax] = fmaxcon(@ERn,Xi0,[],[],[],[],[],[],@fcontr);
 %求w1的右边的极值
-fun=@(xi)(ERn(xi)-Emin)/(Emax-Emin);
-[~,ymin1] = fmincon(fun,Xi0,[],[],[],[],[],[],@fcontr);
-
-%Step2:计算w2y的极值
+fun1=@(xi)(ERn(xi)-Emin)/(Emax-Emin);
+[~,ymin1] = fmincon(fun1,Xi0,[],[],[],[],[],[],@fcontr);
 
 
+%Step3:计算w3y的极值
+
+%求skw 的理想解
+[~,skwmin] = fmincon(@skw,Xi0,[],[],[],[],[],[],@fcontr);
+[~,skwmax] = fmaxcon(@skw,Xi0,[],[],[],[],[],[],@fcontr);
+%求w3的右边的极值
+fun3=@(xi)(skw(xi)-skwmin)/(skwmax-skwmin);
+[~,ymin1] = fmincon(fun3,Xi0,[],[],[],[],[],[],@fcontr);
 end
 function [a,b,c]=fcontr(X)
 %约束条件
