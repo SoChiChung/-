@@ -1,11 +1,11 @@
 
 function SkwRp=SkwRp(xi)
 % x 所有的资产组合 xi x对应的投资比例 下面三个变量对应公式的三个部分
-x=0;
-tao=0;
-skwOne=skw1(xi,x,tao);
-skwTwo=skw2(xi,x,tao);
-skwThree=skw3(xi,x,tao);
+load('mydata/data.mat');
+
+skwOne=skw1(xi,X,tao);
+skwTwo=skw2(xi,X,tao);
+skwThree=skw3(xi,X,tao);
 SkwRp=skwOne+skwTwo+skwThree;
 end
 

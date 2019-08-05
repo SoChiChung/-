@@ -17,16 +17,23 @@ Xi0(1)=1;
 fun1=@(xi)(ERn(xi)-Emin)/(Emax-Emin);
 [~,ymin1] = fmincon(fun1,Xi0,[],[],[],[],[],[],@fcontr);
 
+%Step2:计算w2y的极值
 
+%求var 的理想解
+[~,varmin] = fmincon(@VarLowRp,Xi0,[],[],[],[],[],[],@fcontr);
+[~,varmax] = fmaxcon(@VarLowRp,Xi0,[],[],[],[],[],[],@fcontr);
 %Step3:计算w3y的极值
+fun2=@(xi)(VarLowRp(xi)-varmin)/(varmax-varmin);
+[~,ymin2] = fmincon(fun3,Xi0,[],[],[],[],[],[],@fcontr);
 
 %求skw 的理想解
-[~,skwmin] = fmincon(@skw,Xi0,[],[],[],[],[],[],@fcontr);
-[~,skwmax] = fmaxcon(@skw,Xi0,[],[],[],[],[],[],@fcontr);
+[~,skwmin] = fmincon(@SkwRp,Xi0,[],[],[],[],[],[],@fcontr);
+[~,skwmax] = fmaxcon(@SkwRp,Xi0,[],[],[],[],[],[],@fcontr);
 %求w3的右边的极值
 fun3=@(xi)(skw(xi)-skwmin)/(skwmax-skwmin);
-[~,ymin1] = fmincon(fun3,Xi0,[],[],[],[],[],[],@fcontr);
+[~,ymin3] = fmincon(fun3,Xi0,[],[],[],[],[],[],@fcontr);
 end
+
 function [a,b,c]=fcontr(X)
 %约束条件
 %X 12个投资比例
