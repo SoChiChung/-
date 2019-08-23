@@ -1,6 +1,7 @@
 function Amp=Amp(x,xi,tao)
 %资产组合不确定性
 t=getM(tao);
+
 [row,~]=size(x);
 Amp=0;
 for i=1:row

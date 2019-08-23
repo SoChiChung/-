@@ -2,7 +2,7 @@ function VarLowRp=VarLowRp(xi)
 %资产组合的实际总收益的下可能性半方差
 %xi 比例
 load('data.mat');
-var1=0;var3=0;
+var11=var1(xi);var3=0;
 var2=VarLow(tao);
 [row,~]=size(r);
 
@@ -11,7 +11,7 @@ for i=1:row
     var3=xi(i)*cov(r(i,:),tao);
 end
 var3=var3*2;
-VarLowRp=var1-var2+var3;
+VarLowRp=var11-var2+var3;
 end
 
 function VarLow =VarLow(X)

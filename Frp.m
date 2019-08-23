@@ -1,12 +1,13 @@
-function Frp=Frp(x,xi,tao)
+function Frp=Frp(xi)
 %资产组合模糊性
-t=getM(tao);
-[~,col]=size(x);
-Frp=0;
-for i=1:col
-    m=getM(x(i));
-    Frp=Frp+xi(i)*(m(1)-m(2));
+load('mydata/data.mat');
+
+[row,~]=size(X);
+
+for i=1:row
+    Frp(i,:)=xi.*F(r(i,:))-F(tao);
 end
-Frp=(Frp-(t(1)-t(2)))/4;
+
+Frp=sum(Frp)/4;
 end
 

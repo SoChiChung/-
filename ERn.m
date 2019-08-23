@@ -1,32 +1,39 @@
-function ERn=ERn(xi)
+function [ERn]=ERn(xi)
+
 %扣除交易费用后资产组合净收益的可能性期望值
 %x 资产组合 xi 现投资比例 x0原投资比例
-x=0;
-r=0;
-tao=0;
-ci=0;
-x0=0;
-xii=[xi(1):xi(12)];
-ERn=ERp(x,r,tao)-c(ci,xii,x0);
+global data ;
+data = getData();
+x0=[0,0,0,0,0,0,0,0,0]';
+
+xi
+ERn=ERp(xi,data.r,data.tao)-c(data.ci,xi,x0);
 end
 
-function Ep= ERp(x,r,tao)
+function [Ep]=ERp(x,r,tao)
 %投资组合的实际总收益EP
 % r 风险资产i的风险资产的名义收益率 【r1,r2...ri】 模糊数 
 %X X为模糊资产投资比例【a,b,c,d..】sum=1
 %tao 预期通货膨胀率 常量 模糊数
-
+global data ;
 [row,~]=size(r);
-Ep=0;
+sum=0;
 
 r=r-tao;
 for i=1:row
-    Ep=Ep+x(i)*(amc(x(i,:)));
-end
-Ep=Ep-(amc(r(i)));
+    Ep(i,:)=sum+x(i)*(amc(data.asset(i,:)));
 end
 
-function amc=amc(X)
+Ep
+amc(tao)
+
+% sumEp=sum(Ep,2)
+[row,col]=size(Ep)
+Ep=sum(Ep)-(amc(tao));
+end
+
+function [amc]=amc(X)
+global data ;
 % X为模糊数 【a,b,alpha,beta】
 a=X(1);
 b=X(2);
