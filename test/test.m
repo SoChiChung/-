@@ -10,7 +10,7 @@ vlb=[0,0];
 vub=[];
 
 
-[~,max] = fmaxcon(untitled,x,A,b,Aeq,beq,vlb,vub,'mycon');
+[~,max] = fmincon(@untitled,x,A,b,Aeq,beq,vlb,vub,@mycon);
 end
 function [g,ceq]=mycon(x)
 g=-x(1)^2+x(2);

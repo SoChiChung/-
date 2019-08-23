@@ -1,7 +1,10 @@
 function VarLowRp=VarLowRp(xi)
 %资产组合的实际总收益的下可能性半方差
 %xi 比例
-load('data.mat');
+global data;
+data=getData();
+r=data.r;
+tao=data.tao;
 var11=var1(xi);var3=0;
 var2=VarLow(tao);
 [row,~]=size(r);
@@ -36,16 +39,18 @@ tB=at(2);
 tAlpha=at(3);
 tBeta=at(4);
 
-cov=(rB-Ra)*(tB-tA)/4+((rB-Ra)*(tAlpha+tBeta)+(tB-tA)*(rAlpha+rBeta))/12+((rA+rB)*(tAlpha+tBeta)+2*rAlpha+rBeta)/36;
+cov=(rB-rA)*(tB-tA)/4+((rB-rA)*(tAlpha+tBeta)+(tB-tA)*(rAlpha+rBeta))/12+((rA+rB)*(tAlpha+tBeta)+2*rAlpha+rBeta)/36;
 end
 
 function [var1]=var1(xi)
 [row,col]=size(xi);
+global data;
+data=getData();
 for i=1:col
-    var1_1(i,:)=xi(i)^2.*VarLow(r(i,:));
+    var1_1(i,:)=xi(i)^2.*VarLow(data.r(i,:));
 end
 var1_1=sum(var1_1);
-
+var1_2=0;
 for j=1:col
     var1_2_cov=0;
     if(j~=col)
@@ -55,6 +60,6 @@ for j=1:col
     end
 var1_2=var1_2+var1_2_cov;
 end
-var1=var1_1+var1_2;
+var1=var1_1+2*var1_2;
 end
 

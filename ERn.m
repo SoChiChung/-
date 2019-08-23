@@ -6,8 +6,9 @@ global data ;
 data = getData();
 x0=[0,0,0,0,0,0,0,0,0]';
 
-xi
-ERn=ERp(xi,data.r,data.tao)-c(data.ci,xi,x0);
+e=ERp(xi,data.r,data.tao);
+cc=c(data.ci,xi,x0);
+ERn=e-cc;
 end
 
 function [Ep]=ERp(x,r,tao)
@@ -17,18 +18,16 @@ function [Ep]=ERp(x,r,tao)
 %tao 预期通货膨胀率 常量 模糊数
 global data ;
 [row,~]=size(r);
-sum=0;
+Esum=0;
 
 r=r-tao;
 for i=1:row
-    Ep(i,:)=sum+x(i)*(amc(data.asset(i,:)));
+    Ep(i,:)=Esum+x(i)*(amc(data.asset(i,:)));
 end
 
-Ep
-amc(tao)
+
 
 % sumEp=sum(Ep,2)
-[row,col]=size(Ep)
 Ep=sum(Ep)-(amc(tao));
 end
 

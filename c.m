@@ -4,7 +4,7 @@ function c = c(ci,xi,x0)
 % x0 原投资比例
 % xi 现投资比例
 
-[row,~]=size(ci);
-c=sum(ci.*xi);
+
+c=sum(ci'.*(xi-x0));
 end
 
