@@ -1,0 +1,12 @@
+function [x] = signx(x,m)
+%处理x 使得sign(x)<=m成立
+%   此处显示详细说明
+sorted =sort(x,2)%行排列X
+Max_mth=sorted(:,m)%取第m大的数
+[row,~]=size(x);
+for i=1:row
+    x(row,x(row,:)<Max_mth)=0;
+end
+
+end
+

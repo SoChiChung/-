@@ -5,10 +5,12 @@ function [ERn]=ERn(xi)
 global data ;
 data = getData();
 x0=[0,0,0,0,0,0,0,0,0];
-
-e=ERp(xi,data.r,data.tao);
-cc=c(data.ci,xi,x0);
-ERn=cc-e;
+[row,~]=size(xi);
+for i=1:row
+    e=ERp(xi(row,:),data.r,data.tao);
+    cc=c(data.ci,xi(row,:),x0);
+ERn(row,:)=e-cc;
+end
 end
 
 function [Ep]=ERp(x,r,tao)
