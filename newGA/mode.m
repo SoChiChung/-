@@ -1,4 +1,4 @@
-function [bestin,bestfit]=mode()
+function [bestin,bestfit]=mode(l0)
 %main program
 %runing program
 
@@ -11,7 +11,7 @@ popsize = 50; %popzize of the population
 cl = 9;  %chromosome length 染色体长度
 pc = 0.9; %crossover probability 交叉概率
 pm = 0.1; %mutation probability
-Gmax = 100  ; %maximum generation
+Gmax = 20  ; %maximum generation
 m=6;
 
 %Initialization of the population 生成 popsize cl的随机种群
@@ -50,20 +50,17 @@ for g=1:Gmax
     RP = newpop*data.asset;
     p1x=p1(newpop);
     M = (RP(:,1)+RP(:,2))/2+(RP(:,4)-RP(:,3))/6;
-    p2x=p2(M);
+    p2x=p2(M,l0);
     p3x=p3_Emax(newpop);
     %     objective value
-    obj = exp(ERn(newpop)-100000*p1x+p2x-p3x);
+    obj = exp(E(newpop)-100000*p1x+p2x-p3x);
     %    saving the best solution
     [bestfit,bestin] = elite(newpop,obj,bestfit,bestin);
     
     %selection
     pop = selection(obj,newpop,popsize);
-%     popsize=popsize*2;
-    fprintf(1,'第:%d 代完成\n',g);
-    fprintf(1,'time:%f\n',toc);
+% popsize=popsize*2;
 end
 fprintf(1,'optimal solution:\n');
 fprintf(1,'%.4f  %.4f  %.4f  %.4f\n',bestin);
-fprintf(1,'objective value: %f\n',log(bestfit));
 fprintf(1,'time:%f\n',toc);

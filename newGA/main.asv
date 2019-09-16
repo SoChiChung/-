@@ -1,0 +1,17 @@
+function [bestins,E_max] = main()
+%MAIN 多次循环递归函数
+%   此处显示详细说明
+l0=1:0.1:2;
+tic;
+bestins=0;
+for i=1:11
+    start=tic
+    [bestin]=mode(l0);
+    E_max(i,:)=E(bestin);
+    bestins(i,:)=bestin;
+    fprintf(1,'第:%d 代完成\n',i);
+    fprintf(1,'i为%d 的
+end
+plot(l0,E_max);
+end
+
