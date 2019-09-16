@@ -2,7 +2,7 @@ function [bestin,bestfit]=mode(var0)
 %main program
 %runing program
 
-
+tic
 load DATA;
 data=getData();
 %setting the parameters of GA
@@ -50,8 +50,8 @@ for g=1:Gmax
     RP = newpop*data.asset;
     p1x=p1(newpop);
     M = (RP(:,1)+RP(:,2))/2+(RP(:,4)-RP(:,3))/6;
-    p2x=p2(M);
-    p3x=p3_Emax(newpop,var0);
+    p2x=p2(M,l0);
+    p3x=p3_Emax(newpop);
     %     objective value
     obj = exp(E(newpop)-100000*p1x+p2x-p3x);
     %    saving the best solution
@@ -63,3 +63,4 @@ for g=1:Gmax
 end
 fprintf(1,'optimal solution:\n');
 fprintf(1,'%.4f  %.4f  %.4f  %.4f\n',bestin);
+fprintf(1,'time:%f\n',toc);
