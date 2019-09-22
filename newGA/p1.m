@@ -2,7 +2,7 @@ function [result] = p1(x)
 %惩罚函数p1  
 %针对不满足约束条件 sum(X*lnX)>=e p1(x)=max(0,e+sum(X*lnX))
 [row,~]=size(x);
-
+result=zeros(row,1);
 for i=1:row
     result(row,:)=max(sum(testlog(x(row,:)))+exp(1),0);
 end

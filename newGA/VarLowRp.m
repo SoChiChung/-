@@ -5,16 +5,20 @@ global data;
 data=getData();
 r=data.r;
 tao=data.tao;
-var11=var1(xi);var3=0;
+[xrow,~]=size(xi);
 var2=VarLow(tao);
+VarLowRp=zeros(xrow,1);
+for j=1:xrow
+    pop=xi(j,:);
+var11=var1(pop);
+var3=0;
 [row,~]=size(r);
-
-
 for i=1:row
-    var3=xi(i)*cov(r(i,:),tao);
+    var3=pop(i)*cov(r(i,:),tao);
 end
 var3=var3*2;
-VarLowRp=var11-var2+var3;
+VarLowRp(j,:)=var11-var2+var3;
+end
 end
 
 function VarLow =VarLow(X)
@@ -46,6 +50,7 @@ function [var1]=var1(xi)
 [row,col]=size(xi);
 global data;
 data=getData();
+var1_1=zeros(col,1);
 for i=1:col
     var1_1(i,:)=xi(i)^2.*VarLow(data.r(i,:));
 end

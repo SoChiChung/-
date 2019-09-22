@@ -11,6 +11,7 @@ function [result] = p2(x)
 % end
  l0=0.05;
 [row,~]=size(x);
+result=zeros(row,1);
 for i=1:row
     result(row,:)=max(l0-x(row,:),0);
 end

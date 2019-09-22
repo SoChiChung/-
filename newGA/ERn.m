@@ -7,6 +7,7 @@ data = getData();
 x0=[0,0,0,0,0,0,0,0,0];
 
 [row,~]=size(xi);
+ERn=zeros(rows,1);
 for i=1:row
     e=ERp(xi(i),data.r,data.tao);
     cc=c(data.ci,xi(i),x0);
@@ -22,7 +23,6 @@ function [Ep]=ERp(x,r,tao)
 global data ;
 [row,~]=size(r);
 Esum=0;
-
 r=r-tao;
 for i=1:row
     Ep(i,:)=Esum+x(i)*(amc(data.asset(i,:)));
